@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: fieldfix
+    env: dotnet
+    plan: free
+    rootDir: ./FieldFix
+    buildCommand: dotnet publish -c Release -o publish
+    startCommand: ASPNETCORE_URLS=http://0.0.0.0:$PORT dotnet publish/FieldFix.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        value: Data Source=/data/fieldfix.db
+    disk:
+      name: fieldfix-data
+      mountPath: /data
+      sizeGB: 1
