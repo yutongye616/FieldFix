@@ -1,0 +1,80 @@
+@page "{id:int}"
+@model FieldFix.Pages.EditRequestModel
+@{
+    ViewData["Title"] = "Edit Request";
+}
+
+<div class="form-shell">
+    <div class="page-header compact">
+        <div>
+            <p class="eyebrow">Update</p>
+            <h1>Edit Service Request</h1>
+        </div>
+    </div>
+
+    <form method="post" class="request-form">
+        <input asp-for="Input.Id" type="hidden" />
+
+        <div class="form-grid">
+            <div>
+                <label asp-for="Input.Title">Title</label>
+                <input asp-for="Input.Title" />
+            </div>
+
+            <div>
+                <label asp-for="Input.Location">Location</label>
+                <input asp-for="Input.Location" />
+            </div>
+
+            <div>
+                <label asp-for="Input.Category">Category</label>
+                <select asp-for="Input.Category">
+                    <option>Infrastructure</option>
+                    <option>Equipment</option>
+                    <option>Safety</option>
+                    <option>Power</option>
+                </select>
+            </div>
+
+            <div>
+                <label asp-for="Input.Priority">Priority</label>
+                <select asp-for="Input.Priority">
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                    <option>Critical</option>
+                </select>
+            </div>
+
+            <div>
+                <label asp-for="Input.Status">Status</label>
+                <select asp-for="Input.Status">
+                    <option>Open</option>
+                    <option>Assigned</option>
+                    <option>In Progress</option>
+                    <option>Resolved</option>
+                </select>
+            </div>
+
+            <div>
+                <label asp-for="Input.AssignedTo">Assigned To</label>
+                <input asp-for="Input.AssignedTo" />
+            </div>
+        </div>
+
+        <div>
+            <label asp-for="Input.RequestedBy">Requested By</label>
+            <input asp-for="Input.RequestedBy" />
+        </div>
+
+        <div class="textarea-wrap">
+            <label asp-for="Input.Description">Description</label>
+            <textarea asp-for="Input.Description" rows="5"></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="primary-btn">Save Changes</button>
+            <a asp-page="/Requests" class="secondary-btn">Cancel</a>
+        </div>
+    </form>
+</div>

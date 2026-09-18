@@ -1,0 +1,79 @@
+@page
+@model FieldFix.Pages.RequestsModel
+@{
+    ViewData["Title"] = "Service Requests";
+}
+
+<div class="page-header">
+    <div>
+        <p class="eyebrow">Operations</p>
+        <h1>Service Requests</h1>
+    </div>
+    <a class="primary-btn" asp-page="/RequestForm">Create Request</a>
+</div>
+
+<div class="filter-panel">
+    <form method="get" class="filter-form">
+        <div class="filter-row">
+            <div class="filter-field">
+                <label for="SearchText">Search</label>
+                <input id="SearchText" name="SearchText" value="@Model.SearchText" placeholder="Title, location, team..." />
+            </div>
+            <div class="filter-field">
+                <label for="Status">Status</label>
+                <select id="Status" name="Status">
+                    @foreach (var option in Model.StatusOptions)
+                    {
+                        <option value="@option" selected="@(Model.Status == option)">@option</option>
+                    }
+                </select>
+            </div>
+            <div class="filter-field">
+                <label for="Priority">Priority</label>
+                <select id="Priority" name="Priority">
+                    @foreach (var option in Model.PriorityOptions)
+                    {
+                        <option value="@option" selected="@(Model.Priority == option)">@option</option>
+                    }
+                </select>
+            </div>
+            <div class="filter-actions">
+                <button type="submit" class="primary-btn small-btn">Apply</button>
+                <a asp-page="/Requests" class="secondary-btn small-btn">Clear</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<p class="results-summary">Showing @Model.Requests.Count request(s)</p>
+
+@if (!Model.Requests.Any())
+{
+    <div class="empty-state">
+        <p>No requests match the current search and filter criteria.</p>
+    </div>
+}
+
+<div class="request-list">
+    @foreach (var request in Model.Requests)
+    {
+        <article class="request-card">
+            <div class="request-topline">
+                <h3>@request.Title</h3>
+                <span class="priority @request.Priority.ToLower()">@request.Priority</span>
+            </div>
+            <p class="request-meta">@request.Location • @request.Category • @request.RequestedBy</p>
+            <p>@request.Description</p>
+            <div class="request-footer">
+                <span class="status-badge @request.Status.ToLower().Replace(" ", "-")">@request.Status</span>
+                <span>Assigned: @request.AssignedTo</span>
+            </div>
+            <div class="request-actions">
+                <a asp-page="/EditRequest" asp-route-id="@request.Id" class="secondary-btn small-btn">Edit</a>
+                <form method="post" asp-page-handler="Delete" asp-route-id="@request.Id">
+                    <button type="submit" class="danger-btn small-btn">Delete</button>
+                </form>
+            </div>
+        </article>
+    }
+</div>

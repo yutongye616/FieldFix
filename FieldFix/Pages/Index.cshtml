@@ -1,0 +1,81 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "FieldFix Dashboard";
+}
+
+<div class="dashboard-shell">
+    <header class="hero">
+        <div>
+            <p class="eyebrow">Operations Console</p>
+            <h1>FieldFix</h1>
+            <p class="subtitle">Track service requests, assign priorities, and monitor field work in real time.</p>
+        </div>
+        <div class="status-pill">System Healthy</div>
+    </header>
+
+    <section class="stats-grid">
+        <div class="stat-card">
+            <span>Open Requests</span>
+            <strong>@Model.Summary.OpenRequests</strong>
+        </div>
+        <div class="stat-card high">
+            <span>High Priority</span>
+            <strong>@Model.Summary.HighPriority</strong>
+        </div>
+        <div class="stat-card">
+            <span>Assigned Today</span>
+            <strong>@Model.Summary.AssignedToday</strong>
+        </div>
+        <div class="stat-card">
+            <span>Resolved</span>
+            <strong>@Model.Summary.Resolved</strong>
+        </div>
+    </section>
+
+    <section class="panel-grid">
+        <div class="panel">
+            <h2>Active Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Location</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Broken elevator panel</td>
+                        <td>Grand Central</td>
+                        <td><span class="priority high">High</span></td>
+                        <td>Assigned</td>
+                    </tr>
+                    <tr>
+                        <td>Escalator sensor fault</td>
+                        <td>42nd Street</td>
+                        <td><span class="priority medium">Medium</span></td>
+                        <td>In Progress</td>
+                    </tr>
+                    <tr>
+                        <td>Lighting outage</td>
+                        <td>Atlantic Avenue</td>
+                        <td><span class="priority low">Low</span></td>
+                        <td>Open</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel">
+            <h2>Workflow Summary</h2>
+            <ul class="summary-list">
+                <li><span>Submitted</span><strong>08:30 AM</strong></li>
+                <li><span>Review</span><strong>09:15 AM</strong></li>
+                <li><span>Dispatch</span><strong>10:00 AM</strong></li>
+                <li><span>Resolution</span><strong>Pending</strong></li>
+            </ul>
+        </div>
+    </section>
+</div>
